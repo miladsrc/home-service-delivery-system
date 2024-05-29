@@ -3,18 +3,20 @@ package domain;
 
 import base.entity.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.SoftDelete;
+import org.hibernate.validator.constraints.Length;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PACKAGE)
-@SoftDelete
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,28 +25,42 @@ import java.time.LocalDate;
 @Table(name = "users")
 public class User extends BaseEntity<Long> {
 
-    @Column(name = "first_name")
-    @NotNull
+    static final String FIRST_NAME_COLUMN = "first_name";
+    static final String LAST_NAME_COLUMN = "last_name";
+    static final String PASSWORD_COLUMN = "password";
+    static final String PHONE_NUMBER_COLUMN = "phone_number";
+    static final String EMAIL_COLUMN = "email";
+    static final String IMAGE_DATA_COLUMN = "image_data";
+    static final String SIGN_UP_DATE_COLUMN = "sign_up_date";
+
+    @Column(name = FIRST_NAME_COLUMN)
+    @NotBlank
+    @Length(min = 2, max = 50)
     String firstName;
 
-    @Column(name = "last_name")
-    @NotNull
+    @Column(name = LAST_NAME_COLUMN)
+    @NotBlank
+    @Length(min = 2, max = 50)
     String lastName;
 
-    @Column(name = "password", unique = true)
-    @NotNull
+    @Column(name = PASSWORD_COLUMN, unique = true)
+    @NotBlank
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Pattern must contain lowercase and uppercase letters, a number, and a special character")
     String password;
 
-    @Column(name = "phone_number")
-    @NotNull
-
+    @Column(name = PHONE_NUMBER_COLUMN)
+    @NotBlank
+    @Pattern(regexp = "^0[0-9]{2,}[0-9]{7,}$")
     String phoneNumber;
 
+    @Email
+    String Email;
+
     @Lob
-    @Column(name = "image_data")
+    @Column(name = IMAGE_DATA_COLUMN)
     byte[] imageData;
 
-    @Column(columnDefinition = "DATE", name = "sign_up_date")
-    LocalDate signUpDate;
+    @Column(columnDefinition = "TIMESTAMP", name = SIGN_UP_DATE_COLUMN)
+    LocalDateTime signUpDateTime;
 
 }

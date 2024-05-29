@@ -1,11 +1,9 @@
 package domain;
-
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public enum TaskState {
-
-
-
-
+public enum ExpertiseState {
+    NEW,
+    WAITING,
+    ACCEPTED
 }
