@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @ToString(callSuper = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "users")
+@MappedSuperclass
+//@Table(name = "users")
 public class User extends BaseEntity<Long> {
 
     static final String FIRST_NAME_COLUMN = "first_name";
@@ -51,8 +52,8 @@ public class User extends BaseEntity<Long> {
     @Pattern(regexp = "^0[0-9]{2,}[0-9]{7,}$")
     String phoneNumber;
 
-    @Email
-    String Email;
+    @Email(regexp = "^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")
+    String email;
 
     @Lob
     @Column(name = IMAGE_DATA_COLUMN)
