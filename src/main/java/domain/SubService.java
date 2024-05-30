@@ -1,21 +1,41 @@
 package domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import base.entity.BaseEntity;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SoftDelete;
+
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @SoftDelete
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@SuperBuilder
+@ToString(callSuper = true)
 @Entity
-public class SubService {
-    @Id
-    private Long id;
+public class SubService extends BaseEntity<Long> {
 
+    @Column(name = "sub_service_name")
+    String subServiceName;
+
+    @Column(name = "creation_time")
+    LocalDateTime creationTime = LocalDateTime.now();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "service_id", unique = false)
+    Service service;
+
+    @OneToMany(mappedBy = "subService", cascade = CascadeType.ALL)
+    Set<SubService_Expert> subServiceExperts;
+
+    @OneToOne(mappedBy = "subService")
+    Order order;
+
+    public SubService() {
+        super();
+    }
 }

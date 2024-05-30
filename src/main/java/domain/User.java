@@ -18,9 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 @FieldDefaults(level = AccessLevel.PACKAGE)
 @SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
+@ToString(callSuper = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "users")
 public class User extends BaseEntity<Long> {
@@ -63,4 +61,8 @@ public class User extends BaseEntity<Long> {
     @Column(columnDefinition = "TIMESTAMP", name = SIGN_UP_DATE_COLUMN)
     LocalDateTime signUpDateTime;
 
+
+    public User() {
+        // Constructor logic (if needed)
+    }
 }

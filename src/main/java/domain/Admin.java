@@ -1,5 +1,6 @@
 package domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -12,9 +13,17 @@ import org.hibernate.annotations.SoftDelete;
 @FieldDefaults(level = AccessLevel.PACKAGE)
 @SoftDelete
 @SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString(callSuper = true)
 @Entity
 @Table(name = "admin")
 public class Admin extends User {
+
+    private static final String GRADE_COLUMN = "grade";
+
+    @Column(name = GRADE_COLUMN, unique = true)
+    private String grade;
+
+    public Admin() {
+        // Default constructor
+    }
 }

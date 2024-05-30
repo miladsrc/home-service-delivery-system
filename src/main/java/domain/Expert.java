@@ -9,28 +9,45 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SoftDelete;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PACKAGE)
 @SoftDelete
+@FieldDefaults(level = AccessLevel.PACKAGE)
 @SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString(callSuper = true)
 @Entity
 @Table(name = "expert")
 public class Expert extends User {
 
+    private static final double MAX_CREDIT_AMOUNT = 100000;
+    private static final String DEFAULT_ADDRESS = "Unknown";
+
     @Column(name = "credit_amount")
     @Positive(message = "Credit amount must be positive")
-    @Max(value = 100000, message = "Credit amount cannot exceed 100000")
+    @Max(value = (long) MAX_CREDIT_AMOUNT, message = "Credit amount cannot exceed " + MAX_CREDIT_AMOUNT)
     double creditAmount;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "expertise_state")
-    private ExpertiseState expertiseState;
+    @Column(name = "expertise_state_enable")
+    ExpertState expertiseState = ExpertState.NEW;
 
     @ElementCollection
     @CollectionTable(name = "expert_address", joinColumns = @JoinColumn(name = "expert_id"))
-    private List<Address> addresses;
+    List<Address> addresses;
+
+    @OneToMany(mappedBy = "expert", cascade = CascadeType.ALL)
+    private Set<SubService_Expert> subServiceExperts;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "expert_id")
+    Offer offers;
+
+    @OneToOne(mappedBy = "expert")
+    Order order;
+
+    public Expert() {
+        // Constructor logic (if needed)
+    }
 }
+

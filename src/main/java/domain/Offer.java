@@ -9,48 +9,40 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PACKAGE)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @SoftDelete
 @SuperBuilder
 @ToString(callSuper = true)
 @Entity
-@Table(name = "orders")
-public class Order extends BaseEntity<Long> {
+public class Offer extends BaseEntity<Long> {
 
 
-    @OneToOne(mappedBy = "order")
-    Offer offer;
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    Order order;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "subservice_id")
-    SubService subService;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "expert_id")
-    Expert expert;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
-    Client client;
-
-    @Enumerated
-    TaskState taskState;
+    @OneToMany(mappedBy = "offers")
+    List<Expert> experts;
 
     @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     String descripthion;
 
-    @Column(name = "order_price")
+    @Column(name = "offer_price")
     double price;
 
     @CreationTimestamp
     @Column(name = "time")
     LocalDateTime time;
 
-    public Order() {
+
+    //CONSTRUCTOR
+    public Offer() {
 
     }
 }
