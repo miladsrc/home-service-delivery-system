@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SoftDelete;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,11 +23,11 @@ import java.time.LocalDateTime;
 public class Order extends BaseEntity<Long> {
 
 
-    @OneToOne(mappedBy = "order")
-    Offer offer;
+    @OneToMany(mappedBy = "order")
+    List<Offer> offer = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "subservice_id")
+    @JoinColumn(name = "sub_service_id")
     SubService subService;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -41,7 +43,7 @@ public class Order extends BaseEntity<Long> {
 
     @Lob
     @Column(name = "description", columnDefinition = "TEXT")
-    String descripthion;
+    String description;
 
     @Column(name = "order_price")
     double price;
@@ -49,6 +51,9 @@ public class Order extends BaseEntity<Long> {
     @CreationTimestamp
     @Column(name = "time")
     LocalDateTime time;
+
+    @Enumerated(EnumType.ORDINAL)
+    Rate rate;
 
     public Order() {
 

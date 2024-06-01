@@ -56,7 +56,7 @@ public class User extends BaseEntity<Long> {
     String email;
 
     @Lob
-    @Column(name = IMAGE_DATA_COLUMN)
+    @Column(name = IMAGE_DATA_COLUMN, length = 300000)
     byte[] imageData;
 
     @Column(columnDefinition = "TIMESTAMP", name = SIGN_UP_DATE_COLUMN)

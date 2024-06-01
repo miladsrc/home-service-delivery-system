@@ -21,7 +21,7 @@ import java.util.List;
 public class Offer extends BaseEntity<Long> {
 
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     Order order;
 
@@ -31,7 +31,7 @@ public class Offer extends BaseEntity<Long> {
 
     @Lob
     @Column(name = "description", columnDefinition = "TEXT")
-    String descripthion;
+    String description;
 
     @Column(name = "offer_price")
     double price;
