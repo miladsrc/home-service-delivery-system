@@ -43,6 +43,5 @@ public class Offer extends BaseEntity<Long> {
 
     //CONSTRUCTOR
     public Offer() {
-
     }
 }

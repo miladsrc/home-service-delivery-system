@@ -21,12 +21,9 @@ import java.util.Set;
 @Table(name = "expert")
 public class Expert extends User {
 
-    private static final double MAX_CREDIT_AMOUNT = 100000;
     private static final String DEFAULT_ADDRESS = "Unknown";
 
     @Column(name = "credit_amount")
-    @Positive(message = "Credit amount must be positive")
-    @Max(value = (long) MAX_CREDIT_AMOUNT, message = "Credit amount cannot exceed " + MAX_CREDIT_AMOUNT)
     double creditAmount;
 
     @Column(name = "expertise_state_enable")
@@ -47,7 +44,6 @@ public class Expert extends User {
     Order order;
 
     public Expert() {
-        // Constructor logic (if needed)
     }
 }
 

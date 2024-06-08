@@ -30,7 +30,7 @@ public class SubService_Expert extends BaseEntity<Long> {
     @Column(name = "creation_time")
     LocalDateTime creationTime = LocalDateTime.now();
 
-    //TODO attention amlost eager fetch type will cause n+1 query problem !
+    //TODO attention almost eager fetch type will cause n+1 query problem !
     /**native => List<SubService_Expert> subServiceExperts = entityManager.createQuery(
             "select se from SubService_Expert se join fetch se.subService ss join fetch se.expert e",
             SubService_Expert.class

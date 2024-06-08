@@ -20,12 +20,9 @@ import java.util.List;
 @Table(name = "client")
 public class Client extends User {
 
-    private static final double MAX_CREDIT_AMOUNT = 100000;
     private static final String DEFAULT_ADDRESS = "Unknown";
 
     @Column(name = "credit_amount")
-    @Positive(message = "Credit amount must be positive")
-    @Max(value = (long)MAX_CREDIT_AMOUNT, message = "Credit amount cannot exceed " + MAX_CREDIT_AMOUNT)
     double creditAmount;
 
     @ElementCollection

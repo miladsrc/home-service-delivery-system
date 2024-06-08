@@ -18,12 +18,11 @@ import org.hibernate.annotations.SoftDelete;
 @Table(name = "admin")
 public class Admin extends User {
 
-    private static final String GRADE_COLUMN = "grade";
+    private static final String GRADE_COLUMN = "admin_grade";
 
     @Column(name = GRADE_COLUMN, unique = true)
     private String grade;
 
     public Admin() {
-        // Default constructor
     }
 }

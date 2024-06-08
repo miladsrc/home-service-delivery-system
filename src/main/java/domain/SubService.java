@@ -26,7 +26,7 @@ public class SubService extends BaseEntity<Long> {
     LocalDateTime creationTime = LocalDateTime.now();
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "service_id", unique = false)
+    @JoinColumn(name = "service_id")
     Service service;
 
     @OneToMany(mappedBy = "subService", cascade = CascadeType.ALL)

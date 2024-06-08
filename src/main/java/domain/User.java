@@ -33,30 +33,22 @@ public class User extends BaseEntity<Long> {
     static final String SIGN_UP_DATE_COLUMN = "sign_up_date";
 
     @Column(name = FIRST_NAME_COLUMN)
-    @NotBlank
-    @Length(min = 2, max = 50)
     String firstName;
 
     @Column(name = LAST_NAME_COLUMN)
-    @NotBlank
-    @Length(min = 2, max = 50)
     String lastName;
 
-    @Column(name = PASSWORD_COLUMN, unique = true)
-    @NotBlank
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Pattern must contain lowercase and uppercase letters, a number, and a special character")
+    @Column(name = PASSWORD_COLUMN)
     String password;
 
     @Column(name = PHONE_NUMBER_COLUMN)
-    @NotBlank
-    @Pattern(regexp = "^0[0-9]{2,}[0-9]{7,}$")
     String phoneNumber;
 
-    @Email(regexp = "^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")
+    @Email
     String email;
 
     @Lob
-    @Column(name = IMAGE_DATA_COLUMN, length = 300000)
+    @Column(name = IMAGE_DATA_COLUMN)
     byte[] imageData;
 
     @Column(columnDefinition = "TIMESTAMP", name = SIGN_UP_DATE_COLUMN)
@@ -64,6 +56,5 @@ public class User extends BaseEntity<Long> {
 
 
     public User() {
-        // Constructor logic (if needed)
     }
 }
