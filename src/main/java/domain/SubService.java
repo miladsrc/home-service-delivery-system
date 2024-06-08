@@ -10,6 +10,8 @@ import org.hibernate.annotations.SoftDelete;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import static java.time.LocalDateTime.now;
+
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PROTECTED)
@@ -23,6 +25,7 @@ public class SubService extends BaseEntity<Long> {
     String subServiceName;
 
     @Column(name = "creation_time")
+    @Builder.Default
     LocalDateTime creationTime = LocalDateTime.now();
 
     @ManyToOne(cascade = CascadeType.ALL)
