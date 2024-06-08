@@ -7,12 +7,12 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Address {
-    @Column(name = "street_address")
+    @Column
     private String streetAddress;
 
-    @Column(name = "house_number")
+    @Column
     private String houseNumber;
 
-    @Column(name = "zip_code")
+    @Column
     private String zipCode;
 }
