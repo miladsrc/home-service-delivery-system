@@ -5,4 +5,5 @@ import domain.Admin;
 
 public interface AdminService extends BaseService<Admin, Long> {
 
+    boolean signIn(String phone, String password);
 }

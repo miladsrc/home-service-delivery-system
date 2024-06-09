@@ -7,4 +7,5 @@ import javax.management.Query;
 import java.util.Optional;
 
 public interface AdminRepository extends BaseRepository<Admin, Long> {
+    boolean signIn(String phone, String password);
 }
