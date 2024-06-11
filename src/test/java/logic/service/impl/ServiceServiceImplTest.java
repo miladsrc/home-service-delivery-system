@@ -1,5 +1,6 @@
 package logic.service.impl;
 
+import base.exception.DatabaseOperationException;
 import base.exception.NotFoundException;
 import domain.Service;
 import logic.service.ServiceService;
@@ -30,7 +31,7 @@ class ServiceServiceImplTest {
     }
 
     @Test
-    void testFindServiceById() throws NotFoundException {
+    void testFindServiceById() throws NotFoundException, DatabaseOperationException {
         Long id = 1L;
         Service foundService = serviceService.findById(id);
         assertNotNull(foundService);
@@ -38,7 +39,7 @@ class ServiceServiceImplTest {
 
     @Test
     void testUpdateService() {
-        Service service = new Service(/* initialize service properties */);
+        Service service = new Service();
         Service updatedService = serviceService.update(service);
         assertNotNull(updatedService);
     }

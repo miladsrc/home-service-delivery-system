@@ -1,5 +1,6 @@
 package logic.service.impl;
 
+import base.exception.DatabaseOperationException;
 import base.exception.NotFoundException;
 import domain.SubService;
 import logic.service.SubServiceService;
@@ -27,7 +28,7 @@ class SubServiceServiceImplTest {
     }
 
     @Test
-    void testFindSubServiceById() throws NotFoundException {
+    void testFindSubServiceById() throws NotFoundException, DatabaseOperationException {
         Long id = 1L;
         SubService foundSubService = subServiceService.findById(id);
         assertNotNull(foundSubService);
