@@ -1,6 +1,7 @@
 package base.service;
 
 import base.entity.BaseEntity;
+import base.exception.DatabaseOperationException;
 import base.exception.NotFoundException;
 import base.repository.BaseRepository;
 import jakarta.persistence.EntityTransaction;
@@ -28,7 +29,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>,
 
     //METHOD
     @Override
-    public T saveOrUpdate(T entity) {
+    public T saveOrUpdate(T entity) throws DatabaseOperationException {
         try {
             beginTransaction();
             entity = repository.saveOrUpdate(entity);
@@ -46,7 +47,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>,
 
 
     @Override
-    public T findById(ID id) throws NotFoundException {
+    public T findById(ID id) throws NotFoundException, DatabaseOperationException {
         try {
             beginTransaction();
             Optional<T> optionalT = repository.findById(id);
@@ -65,7 +66,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>,
     }
 
     @Override
-    public void delete(T t) {
+    public void delete(T t) throws DatabaseOperationException {
         try {
             beginTransaction();
             repository.delete(t);

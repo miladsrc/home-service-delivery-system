@@ -1,6 +1,7 @@
 package base.service;
 
 import base.entity.BaseEntity;
+import base.exception.DatabaseOperationException;
 import base.exception.NotFoundException;
 import jakarta.persistence.EntityTransaction;
 
@@ -11,11 +12,11 @@ import java.util.Optional;
 public interface BaseService<T extends BaseEntity<ID>, ID extends Serializable> {
 
 
-    T saveOrUpdate(T entity);
+    T saveOrUpdate(T entity) throws DatabaseOperationException;
 
-    T findById(ID id) throws NotFoundException;
+    T findById(ID id) throws NotFoundException, DatabaseOperationException;
 
-    void delete(T t);
+    void delete(T t) throws DatabaseOperationException;
 
     //added
     List<T> findAll();
