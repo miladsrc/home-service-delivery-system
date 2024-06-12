@@ -1,8 +1,9 @@
 package domain;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Embeddable
 public enum Rate {
     VERY_BAD,
     BAD,
@@ -10,5 +11,6 @@ public enum Rate {
     GOOD,
     VERY_GOOD,
     PERFECT,
-    PROFESSIONAL
+    PROFESSIONAL;
+
 }

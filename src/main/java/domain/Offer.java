@@ -29,7 +29,6 @@ public class Offer extends BaseEntity<Long> {
     @OneToMany(mappedBy = "offers")
     List<Expert> experts;
 
-    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     String description;
 

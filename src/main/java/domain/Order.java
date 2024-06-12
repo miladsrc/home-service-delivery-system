@@ -38,10 +38,9 @@ public class Order extends BaseEntity<Long> {
     @JoinColumn(name = "client_id")
     Client client;
 
-    @Enumerated
+    @Enumerated(EnumType.ORDINAL)
     TaskState taskState;
 
-    @Lob
     @Column(name = "description", columnDefinition = "TEXT")
     String description;
 
