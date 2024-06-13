@@ -39,6 +39,8 @@ public class Offer extends BaseEntity<Long> {
     @Column(name = "time")
     LocalDateTime time;
 
+    @Column(name = "confirmed")
+    boolean confirmed = false;
 
     //CONSTRUCTOR
     public Offer() {

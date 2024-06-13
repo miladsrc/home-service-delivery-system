@@ -43,6 +43,9 @@ public class Expert extends User {
     @OneToOne(mappedBy = "expert")
     Order order;
 
+    @Enumerated
+    Rate rate;
+
     public Expert() {
     }
 }

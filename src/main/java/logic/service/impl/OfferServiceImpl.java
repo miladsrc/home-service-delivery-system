@@ -10,10 +10,12 @@ import org.hibernate.HibernateException;
 import org.hibernate.service.spi.ServiceException;
 import util.ApplicationContext;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class OfferServiceImpl extends BaseServiceImpl<Offer, Long, OfferRepository>
         implements OfferService {
 
-    OfferService offerService = ApplicationContext.getOfferService();
     public OfferServiceImpl(OfferRepository repository) {
         super(repository);
     }
@@ -31,14 +33,33 @@ public class OfferServiceImpl extends BaseServiceImpl<Offer, Long, OfferReposito
             Offer savedOffer = ApplicationContext.getOfferService().saveOrUpdate(offer);
             return savedOffer;
         } catch (HibernateException e) {
-            // Handle Hibernate exceptions, typically related to database connectivity or query issues
             rollbackTransaction();
             throw new DatabaseOperationException("Unable to save or update the offer", e);
         } catch (Exception e) {
-            // Handle other exceptions, which could be related to business logic
             rollbackTransaction();
             throw new ServiceException("An unexpected error occurred while saving or updating the offer", e);
         }
     }
+
+
+    @Override
+    public List<Offer> getAllOffersForOrder(Long orderId) throws NotFoundException {
+        if (orderId == null) {
+            throw new IllegalArgumentException("Order ID cannot be null");
+        }
+
+        List<Offer> offers = ApplicationContext.getOfferService().findAll();
+
+        List<Offer> filteredOffers = offers.stream()
+                .filter(offering -> offering.getOrder() != null && offering.getOrder().getId().equals(orderId))
+                .collect(Collectors.toList());
+
+        if (filteredOffers.isEmpty()) {
+            throw new NotFoundException("No offers found for Order with id " + orderId);
+        }
+
+        return filteredOffers;
+    }
+
 
 }
