@@ -1,5 +1,6 @@
 package logic.service.impl;
 
+import base.exception.DatabaseOperationException;
 import domain.Client;
 import logic.service.ClientService;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,7 @@ class ClientServiceImplTest {
     }
 
     @Test
-    void testChangeClientPassword_Successful() {
+    void testChangeClientPassword_Successful() throws DatabaseOperationException {
         // Arrange
         ClientService clientService = ApplicationContext.getClientService();
         Client client = Client.builder()
@@ -71,6 +72,8 @@ class ClientServiceImplTest {
          has not been stored in the database
           in place of the old password!
          */
+        clientService.saveOrUpdate(client);
+
         boolean result = clientService.changeClientPassword(
                 client.getPhoneNumber(),
                 client.getPassword(),

@@ -22,16 +22,11 @@ public class ServiceServiceImpl extends BaseServiceImpl<Service, Long, ServiceRe
     @Override
     public Service create(Service service) {
         try {
-            // Begin a transaction
             beginTransaction();
-            // Save the service entity to the database
             Service createdService = repository.saveOrUpdate(service);
-            // Commit the transaction
             commitTransaction();
             return createdService;
         } catch (Exception e) {
-            // Handle any exceptions (e.g., unique constraint violation)
-            // Log the error or perform other error handling actions
             rollbackTransaction();
             throw new RuntimeException("Error creating service: " + e.getMessage(), e);
         }
@@ -47,11 +42,8 @@ public class ServiceServiceImpl extends BaseServiceImpl<Service, Long, ServiceRe
     @Override
     public Service findById(Long id) {
         try {
-            // Search for the service by ID
             return repository.findById(id).orElse(null);
         } catch (Exception e) {
-            // Handle any exceptions (e.g., database connection error)
-            // Log the error or perform other error handling actions
             throw new RuntimeException("Error finding service by ID: " + e.getMessage(), e);
         }
     }
@@ -66,16 +58,11 @@ public class ServiceServiceImpl extends BaseServiceImpl<Service, Long, ServiceRe
     @Override
     public Service update(Service service) {
         try {
-            // Begin a transaction
             beginTransaction();
-            // Update the service entity in the database
             Service updatedService = repository.saveOrUpdate(service);
-            // Commit the transaction
             commitTransaction();
             return updatedService;
         } catch (Exception e) {
-            // Handle any exceptions (e.g., unique constraint violation)
-            // Log the error or perform other error handling actions
             rollbackTransaction();
             throw new RuntimeException("Error updating service: " + e.getMessage(), e);
         }

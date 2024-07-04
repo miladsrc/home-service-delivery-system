@@ -23,19 +23,11 @@ public class SubServiceServiceImpl extends BaseServiceImpl<SubService, Long, Sub
     @Override
     public SubService create(SubService subService) {
         try {
-            // Begin a transaction
             beginTransaction();
-
-            // Save the sub-service entity to the database
             SubService createdSubService = repository.saveOrUpdate(subService);
-
-            // Commit the transaction
             commitTransaction();
-
             return createdSubService;
         } catch (Exception e) {
-            // Handle any exceptions (e.g., unique constraint violation)
-            // Log the error or perform other error handling actions
             rollbackTransaction();
             throw new RuntimeException("Error creating sub-service: " + e.getMessage(), e);
         }
@@ -50,11 +42,8 @@ public class SubServiceServiceImpl extends BaseServiceImpl<SubService, Long, Sub
     @Override
     public SubService findById(Long id) {
         try {
-            // Search for the sub-service by ID
             return repository.findById(id).orElse(null);
         } catch (Exception e) {
-            // Handle any exceptions (e.g., database connection error)
-            // Log the error or perform other error handling actions
             throw new RuntimeException("Error finding sub-service by ID: " + e.getMessage(), e);
         }
     }
@@ -68,19 +57,11 @@ public class SubServiceServiceImpl extends BaseServiceImpl<SubService, Long, Sub
     @Override
     public SubService update(SubService subService) {
         try {
-            // Begin a transaction
             beginTransaction();
-
-            // Update the sub-service entity in the database
             SubService updatedSubService = repository.saveOrUpdate(subService);
-
-            // Commit the transaction
             commitTransaction();
-
             return updatedSubService;
         } catch (Exception e) {
-            // Handle any exceptions (e.g., unique constraint violation)
-            // Log the error or perform other error handling actions
             rollbackTransaction();
             throw new RuntimeException("Error updating sub-service: " + e.getMessage(), e);
         }
@@ -94,17 +75,10 @@ public class SubServiceServiceImpl extends BaseServiceImpl<SubService, Long, Sub
     @Override
     public void deleteById(Long id) {
         try {
-            // Begin a transaction
             beginTransaction();
-
-            // Delete the sub-service
             repository.deleteById(id);
-
-            // Commit the transaction
             commitTransaction();
         } catch (Exception e) {
-            // Handle any exceptions (e.g., database connection error)
-            // Log the error or perform other error handling actions
             rollbackTransaction();
             throw new RuntimeException("Error deleting sub-service by ID: " + e.getMessage(), e);
         }

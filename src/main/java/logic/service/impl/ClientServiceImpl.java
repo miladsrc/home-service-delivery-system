@@ -7,7 +7,6 @@ import domain.Client;
 import domain.Expert;
 import domain.Offer;
 import domain.Rate;
-import jakarta.persistence.Enumerated;
 import logic.repository.ClientRepository;
 import logic.service.ClientService;
 import org.apache.bval.util.StringUtils;
@@ -101,6 +100,7 @@ implements ClientService {
     }
 
 
+    @Override
     public boolean confirmOfferOfOrder(Long offerId) throws NotFoundException, DatabaseOperationException {
 
         ApplicationContext.getOrderService().gerListOfOrders();
